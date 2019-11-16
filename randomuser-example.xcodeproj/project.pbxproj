@@ -13,6 +13,8 @@
 		CC9808F22380393C0077F06B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC9808F12380393C0077F06B /* Assets.xcassets */; };
 		CC9808F52380393C0077F06B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC9808F32380393C0077F06B /* LaunchScreen.storyboard */; };
 		CC9809002380393C0077F06B /* randomuser_exampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9808FF2380393C0077F06B /* randomuser_exampleTests.swift */; };
+		CC98091023803B230077F06B /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC98090F23803B230077F06B /* Backend.swift */; };
+		CC98091223803F490077F06B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC98091123803F490077F06B /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		CC9808FB2380393C0077F06B /* randomuser-exampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "randomuser-exampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC9808FF2380393C0077F06B /* randomuser_exampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = randomuser_exampleTests.swift; sourceTree = "<group>"; };
 		CC9809012380393C0077F06B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC98090F23803B230077F06B /* Backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
+		CC98091123803F490077F06B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				CC9808E82380393B0077F06B /* AppDelegate.swift */,
+				CC98090E23803B0A0077F06B /* Backend */,
 				CC98090B23803A310077F06B /* View */,
 				CC9808EC2380393B0077F06B /* ViewController.swift */,
 				CC98090C23803A570077F06B /* Resources */,
@@ -118,6 +123,15 @@
 				CC9808F62380393C0077F06B /* Info.plist */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		CC98090E23803B0A0077F06B /* Backend */ = {
+			isa = PBXGroup;
+			children = (
+				CC98090F23803B230077F06B /* Backend.swift */,
+				CC98091123803F490077F06B /* User.swift */,
+			);
+			path = Backend;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,8 +235,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC98091223803F490077F06B /* User.swift in Sources */,
 				CC9808ED2380393B0077F06B /* ViewController.swift in Sources */,
 				CC9808E92380393B0077F06B /* AppDelegate.swift in Sources */,
+				CC98091023803B230077F06B /* Backend.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
