@@ -30,7 +30,7 @@ class UserListViewController: UIViewController {
         tableView.tableFooterView = UIView()
 
         tableView.register(ActivityCell.self, forCellReuseIdentifier: ActivityCell.reuseID)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UserCell")
+        tableView.register(UINib(nibName: UserCell.reuseID, bundle: nil), forCellReuseIdentifier: UserCell.reuseID)
 
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
@@ -72,10 +72,15 @@ extension UserListViewController: UITableViewDataSource {
             cell.activityIndicator.startAnimating()
             return cell
         }
-        /// - TODO: Implement cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.reuseID, for: indexPath) as? UserCell
+        else { return UITableViewCell() }
+
         let user = userlist.users[indexPath.row]
-        cell.textLabel?.text = user.name.first
+
+        cell.userImage.setImage(from: user.picture.thumbnail)
+        cell.nameLabel.text = "\(user.name.first) \(user.name.last)"
+        cell.ageLabel.text = "\(user.dob.age)"
+        cell.nationalityLabel.text = user.nat
         return cell
     }
 
