@@ -23,6 +23,8 @@ class UserListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "User list"
+
         tableView.dataSource = self
         tableView.prefetchDataSource = self
         tableView.delegate = self
@@ -78,7 +80,7 @@ extension UserListViewController: UITableViewDataSource {
         let user = userlist.users[indexPath.row]
 
         cell.userImage.setImage(from: user.picture.thumbnail)
-        cell.nameLabel.text = "\(user.name.first) \(user.name.last)"
+        cell.nameLabel.text = user.fullName
         cell.ageLabel.text = "\(user.dob.age)"
         cell.nationalityLabel.text = user.nat
         return cell
@@ -102,7 +104,11 @@ extension UserListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let user = userlist.users[indexPath.row]
-        print("User: \(user.name.first)")
+
+        let vc = UserDetailsViewController()
+        vc.user = user
+        navigationController?.show(vc, sender: self)
+        print("User: \(user.fullName)")
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if isLoadingCell(for: indexPath) {

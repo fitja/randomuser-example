@@ -39,4 +39,8 @@ struct User: Codable {
     struct Picture: Codable {
         let large, medium, thumbnail: String
     }
+
+    var fullName: String {
+        return "\(name.first) \(name.last)"
+    }
 }
