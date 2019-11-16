@@ -33,7 +33,7 @@ final class UserList {
             case .success(let response):
                 self.users.append(contentsOf: response.results)
                 self.page += 1
-                self.totalCount = (self.page + 1) * self.pageSize
+                self.totalCount = self.page * self.pageSize + 1
                 self.isFetchInProgress = false
                 completion(self.users, nil)
             case .failure(let error):
