@@ -15,10 +15,17 @@ final class UserList {
     }
 
     private(set) var users: [User] = []
-    private var page = 1
+    private(set) var totalCount: Int = 0
+    private var page = 0
+    private var isFetchInProgress = false
+    private let pageSize = 20
 
     func fetchUsers(completion: @escaping ([User], Error?) -> Void) {
-        backend.fetchUsers(page: page) { [weak self] result in
+        guard !isFetchInProgress else {
+            return
+        }
+        isFetchInProgress = true
+        backend.fetchUsers(page: page, count: pageSize) { [weak self] result in
             guard let self = self else {
                 return
             }
@@ -26,8 +33,11 @@ final class UserList {
             case .success(let response):
                 self.users.append(contentsOf: response.results)
                 self.page += 1
+                self.totalCount = (self.page + 1) * self.pageSize
+                self.isFetchInProgress = false
                 completion(self.users, nil)
             case .failure(let error):
+                self.isFetchInProgress = false
                 completion(self.users, error)
             }
         }
