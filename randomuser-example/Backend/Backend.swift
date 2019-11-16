@@ -53,7 +53,9 @@ final class Backend {
 
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
                 return
             }
             guard let data = data else {
@@ -61,9 +63,13 @@ final class Backend {
             }
             do {
                 let userResponse = try JSONDecoder().decode(UserResponse.self, from: data)
-                completion(.success(userResponse))
+                DispatchQueue.main.async {
+                    completion(.success(userResponse))
+                }
             } catch {
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
             }
         }
         task.resume()
