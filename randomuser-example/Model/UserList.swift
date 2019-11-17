@@ -18,7 +18,11 @@ final class UserList {
     private(set) var totalCount: Int = 0
     private var page = 0
     private var isFetchInProgress = false
-    private let pageSize = 20
+    private let pageSize: Int
+
+    init(pageSize: Int = 20) {
+        self.pageSize = pageSize
+    }
 
     func fetchUsers(completion: @escaping ([User], Error?) -> Void) {
         guard !isFetchInProgress else {
@@ -31,7 +35,7 @@ final class UserList {
             }
             switch result {
             case .success(let response):
-                self.users.append(contentsOf: response.results)
+                self.users.append(contentsOf: response)
                 self.page += 1
                 self.totalCount = self.page * self.pageSize + 1
                 self.isFetchInProgress = false

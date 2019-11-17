@@ -24,28 +24,31 @@ public extension Result where Failure == Error {
 
 final class Backend {
 
+    // MARK: Types
+
+    enum BackendError: Error {
+        case urlRequestError
+        case noDataReturnedError
+    }
+
     // MARK: Singleton
 
     static let shared = Backend()
 
-    // MARK: Properties
-
     // MARK: Init
 
-    private init() {
-
-    }
+    private init() { }
 
     // MARK: API
 
-    func fetchUsers(page: Int, count: Int = 20, completion: @escaping ResultCallback<UserResponse>) {
+    func fetchUsers(page: Int, count: Int = 20, completion: @escaping ResultCallback<[User]>) {
         var components = URLComponents(string: "https://randomuser.me/api")
         components?.queryItems = [
             URLQueryItem(name: "page", value: "\(page)"),
             URLQueryItem(name: "results", value: "\(count)")
         ]
         guard let url = components?.url else {
-            /// - TODO: failure
+            completion(.failure(BackendError.urlRequestError))
             return
         }
         var request = URLRequest(url: url)
@@ -59,12 +62,13 @@ final class Backend {
                 return
             }
             guard let data = data else {
+                completion(.failure(BackendError.noDataReturnedError))
                 return
             }
             do {
                 let userResponse = try JSONDecoder().decode(UserResponse.self, from: data)
                 DispatchQueue.main.async {
-                    completion(.success(userResponse))
+                    completion(.success(userResponse.results))
                 }
             } catch {
                 DispatchQueue.main.async {

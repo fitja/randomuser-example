@@ -11,24 +11,54 @@ import XCTest
 
 class randomuser_exampleTests: XCTestCase {
 
+    var userList: UserList!
+
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        userList = UserList()
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        userList = nil
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testEmptyUserListOnCreation() {
+        userList = UserList()
+        XCTAssertEqual(userList.users.count, 0)
     }
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testFetch20Users() {
+        userList = UserList(pageSize: 20)
+        let promise = expectation(description: "Fetch 20 users")
+        userList.fetchUsers { (users, error) in
+            if let error = error {
+                XCTFail("Error: \(error.localizedDescription)")
+            } else if users.count == 20 {
+                promise.fulfill()
+            } else {
+                XCTFail("Fetched \(users.count) users")
+            }
         }
+        wait(for: [promise], timeout: 5.0)
+    }
+
+    func testFetchTwoPagesOfUsers() {
+        userList = UserList(pageSize: 10)
+        let promise = expectation(description: "Fetch two pages")
+        userList.fetchUsers { (_, error) in
+            if let error = error {
+                XCTFail("Error: \(error.localizedDescription)")
+            } else {
+                self.userList.fetchUsers { (users, error) in
+                    if let error = error {
+                        XCTFail("Error: \(error.localizedDescription)")
+                    } else {
+                        XCTAssertEqual(users.count, 20)
+                        promise.fulfill()
+                    }
+                }
+            }
+        }
+        wait(for: [promise], timeout: 5.0)
     }
 
 }
