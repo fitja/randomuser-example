@@ -10,6 +10,8 @@ import Foundation
 
 final class UserList {
 
+    // MARK: Properties
+
     private var backend: Backend {
         return Backend.shared
     }
@@ -20,9 +22,13 @@ final class UserList {
     private var isFetchInProgress = false
     private let pageSize: Int
 
+    // MARK: Init
+
     init(pageSize: Int = 20) {
         self.pageSize = pageSize
     }
+
+    // MARK: API
 
     func fetchUsers(completion: @escaping ([User], Error?) -> Void) {
         guard !isFetchInProgress else {

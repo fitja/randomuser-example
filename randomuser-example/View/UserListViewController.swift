@@ -40,6 +40,8 @@ class UserListViewController: UIViewController {
         fetch()
     }
 
+    // MARK: Helpers
+
     private func fetch() {
         userlist.fetchUsers { [weak self] (users, error) in
             self?.tableView.refreshControl?.endRefreshing()
@@ -56,12 +58,16 @@ class UserListViewController: UIViewController {
         }
     }
 
+    // MARK: Actions
+
     @objc
     private func refresh() {
         userlist = UserList()
         fetch()
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension UserListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -88,6 +94,8 @@ extension UserListViewController: UITableViewDataSource {
 
 }
 
+// MARK: - UITableViewDataSourcePrefetching
+
 extension UserListViewController: UITableViewDataSourcePrefetching {
     private func isLoadingCell(for indexPath: IndexPath) -> Bool {
         return indexPath.row >= userlist.users.count
@@ -99,6 +107,8 @@ extension UserListViewController: UITableViewDataSourcePrefetching {
         }
     }
 }
+
+// MARK: - UITableViewDelegate
 
 extension UserListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -101,11 +101,11 @@
 		CC9808E72380393B0077F06B /* randomuser-example */ = {
 			isa = PBXGroup;
 			children = (
-				CC558AB2238063EF0094D161 /* Extensions */,
 				CC9808E82380393B0077F06B /* AppDelegate.swift */,
 				CC98090E23803B0A0077F06B /* Backend */,
 				CC980915238043DC0077F06B /* Model */,
 				CC98090B23803A310077F06B /* View */,
+				CC558AB2238063EF0094D161 /* Extensions */,
 				CC98090C23803A570077F06B /* Resources */,
 				CC98090D23803A630077F06B /* Settings */,
 			);
@@ -155,7 +155,6 @@
 			isa = PBXGroup;
 			children = (
 				CC98090F23803B230077F06B /* Backend.swift */,
-				CC98091123803F490077F06B /* User.swift */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
@@ -163,6 +162,7 @@
 		CC980915238043DC0077F06B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CC98091123803F490077F06B /* User.swift */,
 				CC980916238043E90077F06B /* UserList.swift */,
 			);
 			path = Model;
