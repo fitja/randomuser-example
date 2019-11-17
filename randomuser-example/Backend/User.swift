@@ -39,8 +39,19 @@ struct User: Codable {
     struct Picture: Codable {
         let large, medium, thumbnail: String
     }
+}
 
+extension User {
     var fullName: String {
         return "\(name.first) \(name.last)"
+    }
+
+    var natFlag: String {
+        let base : UInt32 = 127397
+        var s = ""
+        for v in nat.unicodeScalars {
+            s.unicodeScalars.append(UnicodeScalar(base + v.value)!)
+        }
+        return s
     }
 }

@@ -82,7 +82,7 @@ extension UserListViewController: UITableViewDataSource {
         cell.userImage.setImage(from: user.picture.thumbnail)
         cell.nameLabel.text = user.fullName
         cell.ageLabel.text = "\(user.dob.age)"
-        cell.nationalityLabel.text = user.nat
+        cell.nationalityLabel.text = user.natFlag
         return cell
     }
 
